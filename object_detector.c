@@ -26,14 +26,14 @@ int main(int argc, char *argv[])
         test = imread("..//data//faces//oscar.bmp");
     }
 
-    // load the object model
-    printf("Loading the object model...\n");
-    struct haar_t *model = haar_read("../data/cascades/haarcascade_frontalface_alt.json");
-
     // convert it to grayscale
     printf("Converting image into grayscale...\n");
     matrix_t *gray = matrix_create(uint8_t, rows(test), cols(test), 1);
     rgb2gray(test, gray);
+
+    // load the object model
+    printf("Loading the object model...\n");
+    struct haar_t *model = haar_read("../data/cascades/haarcascade_frontalface_alt.json");
 
     // do the detection
     printf("Detecting objects...\n");
