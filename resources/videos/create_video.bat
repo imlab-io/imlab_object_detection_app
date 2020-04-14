@@ -1,0 +1,1 @@
+C:\FFmpeg\bin\ffmpeg.exe -framerate 25 -i "C:\\Users\\cescript\\Downloads\\face1_png\\image_%05d.png" -c:v libx264 -crf 0 faces1.mp4
