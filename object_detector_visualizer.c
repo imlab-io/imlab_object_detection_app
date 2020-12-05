@@ -117,14 +117,14 @@ vector_t *haar_detector_visual(matrix_t *img, struct haar_t *cascade, float scal
     float InvArea = 1.0f / (currentWindowWidth * currentWindowHeight);
     int stride = round(scale * stepSize);
 
-    for (j = stride; j < rows(img) - currentWindowHeight; j += max(1, stride))
+    for (j = stride; j < rows(img) - currentWindowHeight; j += maximum(1, stride))
     {
-        for (i = stride; i < cols(img) - currentWindowWidth; i += max(1, stride))
+        for (i = stride; i < cols(img) - currentWindowWidth; i += maximum(1, stride))
         {
             // get variance and mean
 
-            float e2 = InvArea * integral_get_float(ssum, i, j, i + currentWindowWidth - 1, j + currentWindowHeight - 1);
-            float e1 = InvArea * integral_get_float(sums, i, j, i + currentWindowWidth - 1, j + currentWindowHeight - 1);
+            float e2 = InvArea * integral_get_float(ssum, i, j, i + currentWindowWidth - 1, j + currentWindowHeight - 1, 0);
+            float e1 = InvArea * integral_get_float(sums, i, j, i + currentWindowWidth - 1, j + currentWindowHeight - 1, 0);
 
             float variance = (e2 - e1 * e1);
 
@@ -168,7 +168,7 @@ vector_t *haar_detector_visual(matrix_t *img, struct haar_t *cascade, float scal
                         int w = round(scale * trees_t->feats->rects[r].width);
                         int h = round(scale * trees_t->feats->rects[r].height);
 
-                        sum_feature += integral_get_float(sums, x1, y1, x1 + w - 1, y1 + h - 1) * trees_t->feats->rects[r].coefficient;
+                        sum_feature += integral_get_float(sums, x1, y1, x1 + w - 1, y1 + h - 1, 0) * trees_t->feats->rects[r].coefficient;
                     }
 
                     // construct filename and save the file
@@ -252,7 +252,7 @@ int main(int argc, char *argv[])
         printf("obj[%03d]: %d %d %d %d\n", i, obj[i].x, obj[i].y, obj[i].width, obj[i].height);
 
         // set the thickness of the detected object 
-        uint32_t thickness = max(1, sqrt(obj[i].width * obj[i].height) / 20);
+        uint32_t thickness = maximum(1, sqrt(obj[i].width * obj[i].height) / 20);
         
         draw_rectangle(test, obj[i], RGB(50, 140, 100), 2 * thickness + 1);
         draw_rectangle(test, obj[i], RGB(80, 250, 255), thickness);

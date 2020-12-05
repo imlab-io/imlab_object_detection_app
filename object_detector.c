@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
         printf("obj[%03d]: %d %d %d %d\n", i, obj[i].x, obj[i].y, obj[i].width, obj[i].height);
 
         // set the thickness of the detected object 
-        uint32_t thickness = max(1, sqrt(obj[i].width * obj[i].height) / 20);
+        uint32_t thickness = maximum(1, sqrt(obj[i].width * obj[i].height) / 20);
 
         draw_rectangle(test, obj[i], RGB(50, 140, 100), 2 * thickness + 1);
         draw_rectangle(test, obj[i], RGB(80, 250, 255), thickness);
